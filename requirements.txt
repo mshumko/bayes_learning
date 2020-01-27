@@ -1,5 +1,5 @@
-# TO install dependencies run 
-# "pip3.8 install -r requirements.txt"
+# To install dependencies run 
+# "pip3 install -r requirements.txt"
 matplotlib>=3.1.2
 numpy>=1.18.1
 pandas>=0.25.3
