@@ -11,6 +11,7 @@ against the pymc3 library.
 - Non-linear regression from scratch
 - Non-linear regression using pymc3
 - Regression using a life-death transdimensional sampler
+- Apply examples to real-life problems
 
 ## Linear Regression example
 From running linear_regression.py
