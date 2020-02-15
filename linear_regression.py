@@ -117,7 +117,8 @@ if run_scratch:
 
 if run_pymc3: # Plot the pymc3 results for confirmation.
     # Use the bult in traceplot functionality to visualize the posteriors.
-    pymc3.traceplot(pymc_chain[100:], lines={'y0':y[0], 'y1':y[1]})
+    lines = [('y0', {}, [y[0]]), ('y1', {}, [y[1]])] # This API is very cumbersome!
+    pymc3.traceplot(pymc_chain[100:], lines=lines)
 
     # Now make a plot similar to the from scratch plot I made of the family
     # of lines picked from the posterior.
