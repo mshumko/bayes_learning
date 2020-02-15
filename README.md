@@ -5,9 +5,9 @@ against the pymc3 library.
 
 ## Problems Solved
 - Linear regression from scratch
+- Linear regression using pymc3
 
 ## Problems to Solve
-- Linear regression using pymc3
 - Non-linear regression from scratch
 - Non-linear regression using pymc3
 - Regression using a life-death transdimensional sampler

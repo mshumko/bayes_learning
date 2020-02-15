@@ -2,14 +2,17 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import scipy.stats
 import functools
+import pandas as pd
 import numpy as np
 import pymc3
+import os
 
 from scratch import log_likelihood
 from scratch import metropolis
 
-run_scratch = False
-run_pymc3 = True
+run_scratch = True
+save_scratch_trace = True
+run_pymc3 = False
 
 # Make a straight line
 y = [500, 10]
@@ -56,6 +59,13 @@ if run_scratch:
     # Run the MCMC sampler
     scratch_chain = metropolis.log_metroplis(start, target_line, proposal, 
                                     niter, nburn=nburn)
+
+    if save_scratch_trace:
+        if not os.path.exists('./data/'): # Check if data directory exists.
+            os.makedirs('./data/')
+            print('Made a ./data/ directory')
+        df = pd.DataFrame(scratch_chain, columns=['y0', 'y1'])
+        df.to_csv('./data/linear_regression_scratch_trace.csv', index=False)
 
 if run_pymc3:
     ####################################
