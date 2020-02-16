@@ -42,7 +42,7 @@ animate_line, = ax.plot([], [], lw=3)
 ### ANIMATION PARAMETERS ###
 start_frame = 0 # What frame to start at
 plot_memory = 20  # How many last 
-frames = 100
+frames = 50
 trace_quantiles = trace.quantile([0.01, .99])
 intercept_bins = np.linspace(*trace_quantiles['y0'])
 slope_bins = np.linspace(*trace_quantiles['y1'])
@@ -88,4 +88,5 @@ anim = FuncAnimation(fig, animate, init_func=init,
 if not os.path.exists('./plots/'): # Check if plots directory exists.
     os.makedirs('./plots/')
     print('Made a ./plots/ directory')
-anim.save('./plots/linear_regression_from_scratch.gif', writer='imagemagick')
+anim.save('./plots/linear_regression_from_scratch.gif', 
+            writer='imagemagick', dpi=80)
