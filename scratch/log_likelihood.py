@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import copy
+import scipy.stats
 
 def log_poisson_likelihood(y, y_obs):
     """
@@ -21,6 +22,12 @@ def log_poisson_likelihood(y, y_obs):
     -------
     log_likelihood : float
         The sum of of the Poisson log-likelihoods. 
+
+    Notes
+    ------
+    This code can be condesned down to 
+    log_likelihood = np.sum(scipy.stats.poisson.logpmf(k=y_obs, mu=y)) 
+    but I chose to be explicit for the learning opportunity. 
     """
     assert len(y) == len(y_obs), ('The modeled and observed count'
                                 ' lengths must be identical.')
@@ -41,24 +48,25 @@ def log_poisson_likelihood(y, y_obs):
     log_likelihood = np.sum(y_obs_copy*np.log(y) - y - log_factorial)
     return log_likelihood
 
-def log_norm_likelihood():
+def log_norm_likelihood(y_obs, p):
     """
-    Calculate the naural logarithm of the Gaussian (norm) likelihood 
-    for the modeled number of detections y and the observed number of 
-    detections y_obs. The Poisson PMF is
+    Calculate the naural logarithm of the Gaussian (normal) likelihood 
+    for the observation y_obs and Gaussian parameter array p. p[0] is 
+    the offset, and p[1] is the standard deviation. The norm PDF is
 
-    pmf(y_obs | y) = (y^(y_obs) * e^(-y))/ y_obs!
+    pdf(x|p) = exp(-((x-p[0])/sqrt(2)*p[1])**2)/(sqrt(2*pi)*p[1])
 
     Parameters
     ----------
-    y : numpy array
-        The population counts, also called lambda.
-    y_obs : numpy array
-        The observed counts, also called k.
+    x : numpy array
+        The observation.
+    p : numpy array
+        An array of length 2 with the norm offset and standard deviation. 
 
     Returns
     -------
     log_likelihood : float
-        The sum of of the Poisson log-likelihoods. 
+        The sum of of the norm log-likelihoods. 
     """
-    return
+    log_likelihood = np.sum(scipy.stats.norm.logpdf(y_obs, loc=p[0], scale=p[1]))
+    return log_likelihood
