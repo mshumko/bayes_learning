@@ -48,7 +48,7 @@ def log_poisson_likelihood(y, y_obs):
     log_likelihood = np.sum(y_obs_copy*np.log(y) - y - log_factorial)
     return log_likelihood
 
-def log_norm_likelihood(y_obs, p):
+def log_normal_likelihood(y_obs, p):
     """
     Calculate the naural logarithm of the Gaussian (normal) likelihood 
     for the observation y_obs and Gaussian parameter array p. p[0] is 
@@ -68,5 +68,6 @@ def log_norm_likelihood(y_obs, p):
     log_likelihood : float
         The sum of of the norm log-likelihoods. 
     """
-    log_likelihood = np.sum(scipy.stats.norm.logpdf(y_obs, loc=p[0], scale=p[1]))
+    log_pdf = scipy.stats.norm.logpdf(y_obs, loc=p[0], scale=p[1])
+    log_likelihood = np.nansum(log_pdf)
     return log_likelihood
